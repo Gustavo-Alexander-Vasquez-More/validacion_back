@@ -2,7 +2,7 @@ import app from '../app.js'               //importo la aplicación de back confi
 import debug from 'debug'                 //importo el modulo para debuguear
 import http from 'http'                   //importo el módulo para crear servidores
 
-let port = normalizePort(process.env.PORT || '8080')      //defino el puerto donde va a funcionar nuestro servidor
+let port = normalizePort(process.env.PORT || '8084')      //defino el puerto donde va a funcionar nuestro servidor
 //defino un operador OR para normalizar el puerto
 //porque cuando hostee/deployee el servidor el hosting me va a asignar el puerto que tenga libre para mi app
 
