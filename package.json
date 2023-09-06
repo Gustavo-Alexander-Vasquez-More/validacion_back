@@ -7,7 +7,8 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "estados": "node ./models/data/estados.js",
-    "admins": "node ./models/data/admins.js"
+    "admins": "node ./models/data/admins.js",
+    "clientes": "node ./models/data/clientes.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
