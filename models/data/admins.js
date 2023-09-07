@@ -4,9 +4,9 @@ import '../../config/db.js'
 
 let admins=[
 {
-    usuario: 'ElgestorMx',
-    contraseña:'ElgestorMx',
-    rol:'1',
+    usuario: 'hola',
+    contraseña:'hola123',
+    rol:0,
     online:false,
     folios:25
 }
