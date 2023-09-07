@@ -6,6 +6,8 @@ const crearAdmin = joi.object({
     contraseña: joi.string()
     .required(),
     rol: joi.number()
+    .required(),
+    folios: joi.number()
     .required()
     
 })
