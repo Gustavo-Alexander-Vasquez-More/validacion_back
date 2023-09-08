@@ -13,9 +13,9 @@ export default async(req,res,next)=> {
             message:'Usuario logueado con exito',
             response: {
                 usuario: one.usuario,
-                foto: one.foto,
                 rol:one.rol,
-                token: req.token
+                token: req.token,
+                folios:one.folios
 }
 })
 } catch (error) {
