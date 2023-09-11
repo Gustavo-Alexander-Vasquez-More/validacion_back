@@ -5,7 +5,9 @@ const crearCliente = joi.object({
         .required(),
     nombre: joi.string()
     .required(),
-    folio_tipo: joi.string()
+    folio: joi.string()
+    .required(),
+    tipo:joi.string()
     .required(),
     rfc_curp: joi.string()
     .required(),

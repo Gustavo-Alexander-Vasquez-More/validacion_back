@@ -6,8 +6,9 @@ import '../../config/db.js'
 let clientes=[
     {
     nombre: "ROGELIO ABELARDO MEDEL DIOSDADO",
-    foto:"https://firebasestorage.googleapis.com/v0/b/validacion-de-licencias.appspot.com/o/010087023.jpeg?alt=media&token=11dfc2bd-7a90-43db-bb75-96f6a89292cc",
-    folio_tipo:"010087023 TIPO AUTOMOVILISTA",
+    foto:"https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    folio:"010087023",
+    tipo:'TIPO AUTOMOVILISTA',
     rfc_curp:"MEDR850413",
     estado_id:"Chiapas",
     expedicion: new Date("2021-05-13"),
