@@ -4,7 +4,8 @@ let collection = 'clientes'
 let schema = new Schema({
     nombre: { type: String, required: true },
     foto: { type: String, required: true },
-    folio_tipo: { type: String, required: true },
+    folio: { type: String, required: true },
+    tipo:{type:String, required:true},
     rfc_curp: { type: String, required: true },
     expedicion: { type: Date, required: true },
     vigencia: { type: Date, required: true },
