@@ -7,7 +7,7 @@ let estados =[
     nombre: "Aguascalientes"
     },
     {
-    nombre:"Baja California"
+    nombre:"Baja California Norte"
     },
     {
     nombre:"Baja California Sur"

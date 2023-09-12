@@ -1,8 +1,6 @@
 import { Router } from "express";
 import read from "../controllers/clientes/read.js";
 import create from '../controllers/clientes/create.js'
-import Validacion from '../middlewares/validator.js'
-import crearCliente from "../schemas/createCliente.js";
 
 import multer from "multer";
 const upload = multer({ dest:'uploads/'});
