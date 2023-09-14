@@ -3,8 +3,7 @@ import Estados from "../../models/Estados.js"; // Asegúrate de importar tu mode
 
 export default async (req, res, next) => {
   try {
-    const photoUrl = req.file ? req.file.path : null;
-    let clienteData = { ...req.body, foto: photoUrl };
+    let clienteData =  req.body ;
 
     // Verificar si se proporcionó el nombre del estado
     if (clienteData.estado_id) {
@@ -27,13 +26,8 @@ export default async (req, res, next) => {
     const all = await Clientes.create(clienteData);
 
     if (all) {
-      const imageUrl = photoUrl ? photoUrl.replace("\\", "/") : null;
-      const response = imageUrl
-        ? { ...all._doc, foto: imageUrl }
-        : all._doc;
-
       return res.status(201).json({
-        response: response,
+        response: all,
         message: "Cliente creado exitosamente.",
       });
     } else {
@@ -44,9 +38,5 @@ export default async (req, res, next) => {
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json({
-      response: null,
-      message: "Ocurrió un error interno en el servidor.",
-    });
   }
 };
