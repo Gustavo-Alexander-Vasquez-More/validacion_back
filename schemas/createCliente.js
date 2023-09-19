@@ -13,7 +13,7 @@ const crearCliente = joi.object({
     .required(),
     expedicion: joi.date()
     .required(),
-    vigencia: joi.date()
+    vigencia: joi.string()
     .required(),
     estado_id: joi.string()
     .required(),
