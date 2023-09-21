@@ -1,9 +1,10 @@
 import Clientes from "../../models/Clientes.js";
 import Estados from "../../models/Estados.js"; // Asegúrate de importar tu modelo de Estados
-
+import Admins from "../../models/Admins.js";
 export default async (req, res, next) => {
   try {
     let clienteData =  req.body ;
+    
 
     // Verificar si se proporcionó el nombre del estado
     if (clienteData.estado_id) {
@@ -20,6 +21,22 @@ export default async (req, res, next) => {
       clienteData = {
         ...clienteData,
         estado_id: estado._id,
+      };
+    }
+    if (clienteData.author_id) {
+      const admin = await Admins.findOne({ usuario: clienteData.author_id });
+
+      if (!admin) {
+        return res.status(400).json({
+          response: null,
+          message: `El admin "${clienteData.author_id}" no existe en la base de datos.`,
+        });
+      }
+
+      // Asignar el ObjectId del estado a la propiedad estado_id
+      clienteData = {
+        ...clienteData,
+        author_id: admin._id,
       };
     }
 

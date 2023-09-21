@@ -1,5 +1,6 @@
 import Clientes from '../Clientes.js'
 import Estados from '../Estados.js'
+import Admins from '../Admins.js'
 import 'dotenv/config.js'
 import '../../config/db.js'
 
@@ -11,6 +12,7 @@ let clientes=[
     tipo:'C',
     rfc_curp:"Fjejfjf",
     estado_id:"Aguascalientes",
+    author_id:"gus",
     expedicion: new Date("2023-09-14"),
     vigencia: "14-09-2023"
     },
@@ -21,6 +23,7 @@ let clientes=[
         tipo:'C',
         rfc_curp:"SKGNSKFKS",
         estado_id:"Chiapas",
+        author_id:"gus",
         expedicion: new Date("2023-09-15"),
         vigencia: "22-09-2023"
         },
@@ -31,6 +34,7 @@ let clientes=[
             tipo:'C',
             rfc_curp:"TESI770419HGTRLS05",
             estado_id:"Guanajuato",
+            author_id:"gus",
             expedicion: new Date("2023-09-14"),
             vigencia: "14-09-2026"
             },
@@ -41,6 +45,7 @@ let clientes=[
                 tipo:'A',
                 rfc_curp:"LECM01924HGTNMRA9",
                 estado_id:"Guanajuato",
+                author_id:"gus",
                 expedicion: new Date("2026-09-15"),
                 vigencia: "15-09-2026"
                 },
@@ -51,6 +56,7 @@ let clientes=[
                     tipo:'B',
                     rfc_curp:"AUAP85062HBSGRB07",
                     estado_id:"Baja California Norte",
+                    author_id:"gus",
                     expedicion: new Date("2023-09-15"),
                     vigencia: "29-06-2028"
                     },
@@ -61,16 +67,36 @@ let clientes=[
                         tipo:'CHOFER',
                         rfc_curp:"NAOJ760224HMNVCS04",
                         estado_id:"Michoacán",
+                        author_id:"gus",
                         expedicion: new Date("2023-09-18"),
                         vigencia: "18-09-2032"
                         },
 ]
 clientes.map(cliente=>add_estado(cliente))
 
-async function add_estado(cliente){
-console.log(cliente.estado_id);
-let estados= await Estados.findOne({nombre:cliente.estado_id})
-let estado_id=estados._id
-cliente.estado_id=estado_id
-await Clientes.create(cliente)
-}
+async function add_estado(cliente) {
+    console.log(cliente.estado_id)
+    console.log(cliente.author_id);;
+    
+    // Buscar el estado por el nombre proporcionado en el cliente
+    let estado = await Estados.findOne({ nombre: cliente.estado_id });
+    if (!estado) {
+      console.log(`Estado no encontrado para cliente: ${cliente.nombre}`);
+      return; // Puedes manejar el caso en que el estado no se encuentre
+    }
+    
+    // Buscar el admin por el nombre de usuario
+    let admin = await Admins.findOne({ usuario: cliente.author_id });
+    if (!admin) {
+      console.log(`Admin no encontrado para cliente: ${cliente.nombre}`);
+      return; // Puedes manejar el caso en que el admin no se encuentre
+    }
+    
+    // Asignar los _id correspondientes
+    cliente.estado_id = estado._id;
+    cliente.author_id = admin._id;
+  
+    // Crear un nuevo cliente
+    await Clientes.create(cliente);
+  }
+  

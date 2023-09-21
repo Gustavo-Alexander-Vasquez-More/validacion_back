@@ -17,6 +17,8 @@ const crearCliente = joi.object({
     .required(),
     estado_id: joi.string()
     .required(),
+    author_id: joi.string()
+    .required(),
 })
 
 export default crearCliente;

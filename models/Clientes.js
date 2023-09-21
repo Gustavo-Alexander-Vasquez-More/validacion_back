@@ -12,7 +12,11 @@ let schema = new Schema({
     estado_id: {
         type:Types.ObjectId,
         ref:'estados',
-     }
+    },
+    author_id: {
+        type:Types.ObjectId,
+        ref:'admins',
+    }
 }, {
     timestamps: true
 })

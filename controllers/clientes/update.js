@@ -2,10 +2,10 @@ import Clientes from "../../models/Clientes.js";
 
 export default async(req, res)=>{
     try {
-        const nombreClient=req.params.nombre
+        const folioClient=req.params.folio
         const updatedData=req.body
         const updated=await Clientes.findOneAndUpdate(
-            { nombre:  nombreClient},
+            { folio:  folioClient},
             updatedData,
             { new: true }
           );
