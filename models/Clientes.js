@@ -15,7 +15,7 @@ let schema = new Schema({
     },
     author_id: {
         type:Types.ObjectId,
-        ref:'admins',
+        ref:'administradores',
     }
 }, {
     timestamps: true
