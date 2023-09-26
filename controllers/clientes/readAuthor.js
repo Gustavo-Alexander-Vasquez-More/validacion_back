@@ -1,4 +1,5 @@
 import Clientes from "../../models/Clientes.js";
+import Admins from '../../models/Admins.js';
 
 export default async (req, res) => {
   const itemsPerPage = 5;
@@ -17,7 +18,20 @@ export default async (req, res) => {
   page = page || 1;
 
   try {
-    const clients = await Clientes.find(req.body)
+    const author = req.query.author;
+
+    // Buscar el ID del autor basado en el nombre de usuario
+    const admin = await Admins.findOne({ usuario: author });
+
+    if (!admin) {
+      res.status(404).json({
+        response: null,
+        message: "No se encontró el autor con el nombre de usuario proporcionado."
+      });
+      return;
+    }
+
+    const clients = await Clientes.find({ author_id: admin._id })
       .populate({
         path: 'estado_id',
         select: 'nombre'
