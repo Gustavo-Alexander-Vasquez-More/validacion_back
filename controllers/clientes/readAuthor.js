@@ -55,7 +55,10 @@ export default async (req, res) => {
         prevPage = page - 1;
       }
 
-      if (clients.length === itemsPerPage) {
+      const totalClients = await Clientes.countDocuments({ author_id: admin._id });
+      const totalPages = Math.ceil(totalClients / itemsPerPage);
+
+      if (page < totalPages) {
         nextPage = page + 1;
       }
     }
