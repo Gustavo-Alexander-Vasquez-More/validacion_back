@@ -3,6 +3,8 @@ import "./config/db.js"
 import { __dirname } from './utils.js';
 import cors from 'cors'//modulo para permitir origenes cruzados(puerto del back con puerto del front)
 import express from'express'; //modulo necesario para levantar y configurar un servidor
+import http from 'http';  // Importa el módulo http
+import { Server } from 'socket.io';  
 import indexRouter from'./routes/index.js';//enrutador principal de la aplicacion
 import logger from'morgan';//modulo para registrar las peticiones que se reaslizan al servidor
 import path from'path'; //modulo necesario para conocer la ubicaciob de nuestro servidor

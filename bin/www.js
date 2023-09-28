@@ -1,22 +1,37 @@
-
-import app from '../app.js' ;
+import app from '../app.js';
 import debug from 'debug';
-import http from 'http' ;
+import http from 'http';
+import { Server } from 'socket.io';  // Importa Server desde socket.io
 import bodyParser from 'body-parser';
-const logger= debug('levantando-new-server')
+
+const logger = debug('levantando-new-server');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 let port = normalizePort(process.env.PORT || '8084');
 app.set('port', port);
 
 let server = http.createServer(app);
-function ready(){
-  console.log('Your server it´s ready on port'+port);
+
+const io = new Server(server);  // Configura Socket.io con el servidor
+
+io.on('connection', (socket) => {
+  console.log('Usuario conectado');
+
+  // Aquí puedes escuchar eventos y realizar acciones cuando se emiten desde el cliente
+  // Ejemplo: socket.on('miEvento', (data) => { console.log(data); });
+
+  socket.on('disconnect', () => {
+    console.log('Usuario desconectado');
+  });
+});
+
+function ready() {
+  console.log('Your server it´s ready on port' + port);
 }
-server.listen(
-  port,
-  ready,
-  );
+
+server.listen(port, ready);
+
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -36,10 +51,6 @@ function normalizePort(val) {
   return false;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -49,7 +60,6 @@ function onError(error) {
     ? 'Pipe ' + port
     : 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
@@ -63,10 +73,6 @@ function onError(error) {
       throw error;
   }
 }
-
-/**
- * Event listener for HTTP server "listening" event.
- */
 
 function onListening() {
   let addr = server.address();
