@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 });
 
 // Configura una ruta para las conexiones WebSocket
-appWithWs.ws('/socket', (ws, req) => {
+appWithWs.ws('/api', (ws, req) => {
   console.log('Usuario conectado al WebSocket');
 
   // Escucha mensajes desde el cliente
