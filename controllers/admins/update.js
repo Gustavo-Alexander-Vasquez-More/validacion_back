@@ -5,12 +5,7 @@ export default async (req, res) => {
     const { usuario } = req.params;
     const updatedData = req.body;
 
-    // Si se está actualizando la contraseña, también establece online a false
-    if (updatedData.contraseña) {
-      updatedData.online = false;
-    }
-
-    const updated = await Admins.findOneAndUpdate(
+  const updated = await Admins.findOneAndUpdate(
       { usuario: usuario },
       updatedData,
       { new: true }

@@ -4,14 +4,14 @@ import './config/db.js';
 import { __dirname } from './utils.js';
 import cors from 'cors';
 import express from 'express';
-import expressWs from 'express-ws';
+
 import indexRouter from './routes/index.js';
 import logger from 'morgan';
 import path from 'path';
 import bodyParser from 'body-parser';
 
 const app = express();
-const { app: appWithWs, getWss } = expressWs(app);
+
 
 app.disable('etag');
 
@@ -31,22 +31,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Configura una ruta para las conexiones WebSocket
-appWithWs.ws('/api', (ws, req) => {
-  console.log('Usuario conectado al WebSocket');
 
-  // Escucha mensajes desde el cliente
-  ws.on('message', (message) => {
-    console.log('Mensaje recibido:', message);
-
-    // Puedes enviar mensajes de vuelta al cliente
-    ws.send('Mensaje recibido por el servidor: ' + message);
-  });
-
-  // Maneja la desconexión del cliente
-  ws.on('close', () => {
-    console.log('Usuario desconectado del WebSocket');
-  });
-});
 
 export default app;
