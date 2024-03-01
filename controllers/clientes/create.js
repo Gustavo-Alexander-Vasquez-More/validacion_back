@@ -43,6 +43,11 @@ export default async (req, res, next) => {
     const all = await Clientes.create(clienteData);
 
     if (all) {
+      await Admins.findOneAndUpdate(
+        { _id: clienteData.author_id },
+        { $inc: { folios: -1 } },
+        { new: true }
+      );
       return res.status(201).json({
         response: all,
         message: "Cliente creado exitosamente.",
