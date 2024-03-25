@@ -23,5 +23,5 @@ admins_router.post('/logout', Passport.authenticate('jwt', { session:false }),si
 admins_router.get('/',read)
 admins_router.delete('/delete', destroy)
 admins_router.put('/update/:usuario', update)
-admins_router.put('/updatePassword/:usuario', Hash, updatePassword)
+admins_router.put('/updatePassword/:usuario', Hash, update)
 export default admins_router
