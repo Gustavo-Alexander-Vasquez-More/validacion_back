@@ -13,6 +13,7 @@ import signOut from '../controllers/admins/signOut.js'
 import read from '../controllers/admins/read.js'
 import destroy from "../controllers/admins/destroy.js";
 import update from "../controllers/admins/update.js";
+import updatePassword from "../controllers/admins/updatePassword.js";
 
 const admins_router=Router()
 
@@ -22,4 +23,5 @@ admins_router.post('/logout', Passport.authenticate('jwt', { session:false }),si
 admins_router.get('/',read)
 admins_router.delete('/delete', destroy)
 admins_router.put('/update/:usuario', update)
+admins_router.put('/updatePassword/:usuario', Hash, updatePassword)
 export default admins_router
