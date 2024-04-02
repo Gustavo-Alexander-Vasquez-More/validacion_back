@@ -13,7 +13,7 @@ import signOut from '../controllers/admins/signOut.js'
 import read from '../controllers/admins/read.js'
 import destroy from "../controllers/admins/destroy.js";
 import update from "../controllers/admins/update.js";
-import updatePassword from "../controllers/admins/updatePassword.js";
+
 
 const admins_router=Router()
 
