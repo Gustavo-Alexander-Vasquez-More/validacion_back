@@ -9,6 +9,7 @@ export default async(req, res, next) => {
         );
         if (!one) {
             return res.status(401).json({
+                response:null,
                 success: false,
                 message: 'El usuario o contraseña son incorrectos'
             });
@@ -26,6 +27,7 @@ export default async(req, res, next) => {
         });
     } catch (error) {
         return res.status(500).json({
+            response:null,
             success: false,
             message: 'El usuario o contraseña son incorrectos'
         });
