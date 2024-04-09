@@ -12,7 +12,7 @@ export default async(req, res, next)=> {
         }
         return res.status(400).json({
             response: null, 
-            message: 'El nombre o la contraseña son incorrectos!'
+            message: 'El usuario o la contraseña son incorrectos!'
         })
     } catch (error) {
         return next(error)
