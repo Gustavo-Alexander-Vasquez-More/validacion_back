@@ -18,7 +18,7 @@ import userExist from "../middlewares/userExist.js";
 
 const admins_router=Router()
 
-admins_router.post('/create',Validator(createAdmin),acountExist , Hash ,create)
+admins_router.post('/create',Validator(createAdmin), acountExist , Hash ,create)
 admins_router.post('/login', Validator(loginAdmin), userExist, passwordIsOk, generateToken, signIn)
 admins_router.post('/logout', Passport.authenticate('jwt', { session:false }),signOut)
 admins_router.get('/',read)
