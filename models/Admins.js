@@ -7,7 +7,7 @@ let schema = new Schema({
     rol:{type:Number, default:0},
     online:{type:Boolean, default:false},
     folios:{type:Number, default:25},
-    creador:{type:String}
+    creador:{type:String},
 },{
     timestamps:true
 })
