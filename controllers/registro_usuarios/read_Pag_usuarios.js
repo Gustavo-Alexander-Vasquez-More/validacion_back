@@ -18,6 +18,7 @@ export default async (req, res) => {
 
 try {
     const clients = await Registro_usuarios.find(req.body)
+    .sort({ updatedAt: -1 })
     .skip((page - 1) * itemsPerPage)
     .limit(itemsPerPage);
 
