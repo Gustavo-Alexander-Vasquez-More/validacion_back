@@ -19,6 +19,10 @@ io.on('connection', (socket) => {
     io.emit('discount_folio', usuario);
     });
 })
+server.listen(port, () => {console.log(`Servidor HTTP y Socket escuchando en el puerto ${port}`);});
+
+server.on('error', onError);
+server.on('listening', onListening);
 function normalizePort(val) {
   let port = parseInt(val, 10);
 
