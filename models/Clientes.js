@@ -9,6 +9,7 @@ let schema = new Schema({
     rfc_curp: { type: String, required: true },
     expedicion: { type: Date, required: true },
     vigencia: { type: String, required: true },
+    fecha_creacion: { type: String},
     estado_id: {
         type:Types.ObjectId,
         ref:'estados',
