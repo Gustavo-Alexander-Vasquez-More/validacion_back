@@ -1,24 +1,24 @@
 import app from '../app.js';
 import debug from 'debug';
 import http from 'http';
-import { Server as SocketServer } from 'socket.io';  // Importa Server desde socket.io
+import { Server } from 'socket.io';  // Importa Server desde socket.io
 import bodyParser from 'body-parser';
 
 const logger = debug('levantando-new-server');
+let port = normalizePort(process.env.PORT || '8084');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-let port = normalizePort(process.env.PORT || '8084');
 app.set('port', port);
 
 const server = http.createServer(app);
-function ready() {
-  console.log('Your server it´s ready on port' + port);
-}
-const httpServer=server.listen(port, ready);
- const Io = new SocketServer(httpServer);  // Configura Socket.io con el servidor
- export default Io
-
+const io=new Server(server, {
+  cors:{origin: '*'}
+})
+io.on('connection', (socket) => {
+  socket.on('create_alta', (usuario) => {
+    io.emit('discount_folio', usuario);
+    });
+})
 function normalizePort(val) {
   let port = parseInt(val, 10);
 
