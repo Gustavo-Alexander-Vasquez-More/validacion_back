@@ -1,18 +1,33 @@
 import jwt from 'jsonwebtoken';
+import Admins from '../models/Admins.js';
 
-export default (req, res, next) => {
-    const { usuario, rol } = req.body; // Extrae usuario y rol del cuerpo de la solicitud
+export default async (req, res, next) => {
+  const { usuario, password } = req.body;
 
-    if (!usuario || !rol) {
-        return res.status(400).json({ error: "Usuario y rol son requeridos" });
+  try {
+    // Buscar al usuario en la base de datos
+    const admin = await Admins.findOne({ usuario });
+
+    // Si el usuario no existe o la contraseña no coincide
+    if (!admin || admin.password !== password) {
+      return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
 
-    let token = jwt.sign(
-        { usuario, rol },  // Ahora el token contiene tanto usuario como rol
-        process.env.SECRET_KEY, 
-        { expiresIn: '7d' }  // Expira en 7 días
+    // Generar el token solo si las credenciales son correctas
+    const token = jwt.sign(
+      {
+        usuario: admin.usuario,
+        rol: admin.rol,
+        folios: admin.folios
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: '7d' }  // Cambiado a 1 hora por seguridad
     );
 
-    req.token = token;  
-    next();
+    req.token = token;  // Agregar el token al objeto req para el siguiente middleware o respuesta
+    next();  // Continuar al siguiente middleware o controlador
+  } catch (error) {
+    console.error('Error en autenticación:', error);
+    res.status(500).json({ error: 'Error en el servidor' });
+  }
 };
