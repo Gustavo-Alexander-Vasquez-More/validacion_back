@@ -15,12 +15,14 @@ import destroy from "../controllers/admins/destroy.js";
 import update from "../controllers/admins/update.js";
 import userExist from "../middlewares/userExist.js";
 import verificarToken from "../controllers/admins/verificacionToken.js";
+import read_especific from "../controllers/admins/read_especific.js";
 
 
 const admins_router=Router()
 
 admins_router.post('/create', acountExist , Hash ,create)
 admins_router.get('/verification', verificarToken)
+admins_router.get('/read_especific/:_id', read_especific)
 admins_router.post('/login', Validator(loginAdmin), userExist, passwordIsOk, generateToken, signIn)
 admins_router.post('/logout', Passport.authenticate('jwt', { session:false }),signOut)
 admins_router.get('/',read)
