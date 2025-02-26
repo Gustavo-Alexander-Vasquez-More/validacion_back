@@ -14,7 +14,8 @@ import read from '../controllers/admins/read.js'
 import destroy from "../controllers/admins/destroy.js";
 import update from "../controllers/admins/update.js";
 import userExist from "../middlewares/userExist.js";
-import verificarToken from "../middlewares/validationToken.js";
+import verificarToken from "../controllers/admins/verificacionToken.js";
+
 
 const admins_router=Router()
 
