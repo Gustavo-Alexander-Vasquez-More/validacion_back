@@ -14,11 +14,12 @@ import read from '../controllers/admins/read.js'
 import destroy from "../controllers/admins/destroy.js";
 import update from "../controllers/admins/update.js";
 import userExist from "../middlewares/userExist.js";
-
+import verificarToken from "../middlewares/validationToken.js";
 
 const admins_router=Router()
 
 admins_router.post('/create', acountExist , Hash ,create)
+admins_router.get('/verification', verificarToken)
 admins_router.post('/login', Validator(loginAdmin), userExist, passwordIsOk, generateToken, signIn)
 admins_router.post('/logout', Passport.authenticate('jwt', { session:false }),signOut)
 admins_router.get('/',read)
