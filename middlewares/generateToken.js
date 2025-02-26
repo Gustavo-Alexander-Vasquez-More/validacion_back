@@ -18,7 +18,6 @@ export default async (req, res, next) => {
       {
         usuario: admin.usuario,
         rol: admin.rol,
-        folios: admin.folios
       },
       process.env.SECRET_KEY,
       { expiresIn: '7d' }  // Cambiado a 1 hora por seguridad
