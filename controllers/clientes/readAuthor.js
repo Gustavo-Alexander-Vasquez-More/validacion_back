@@ -6,12 +6,11 @@ export default async (req, res) => {
   let page = parseInt(req.query.page);
 
   // Verificar si el número de página es 0 o negativo
-  if (page <= 0) {
-    res.status(400).json({
-      response: null,
+  if (page <= 0 || isNaN(page)) {
+    return res.status(400).json({
+      response: [],
       message: "Número de página no válido. Por favor, proporciona un número de página positivo."
     });
-    return;
   }
 
   // Si la página es undefined o no es un número, se toma por defecto la página 1
@@ -24,56 +23,37 @@ export default async (req, res) => {
     const admin = await Admins.findOne({ usuario: author });
 
     if (!admin) {
-      res.status(404).json({
-        response: null,
+      return res.status(404).json({
+        response: [],
         message: "No se encontró el autor con el nombre de usuario proporcionado."
       });
-      return;
     }
 
+    // Obtener clientes paginados
     const clients = await Clientes.find({ author_id: admin._id })
-      .populate({
-        path: 'estado_id',
-        select: 'nombre'
-      })
-      .populate({
-        path: 'author_id',
-        select: 'usuario'
-      })
+      .populate({ path: 'estado_id', select: 'nombre' })
+      .populate({ path: 'author_id', select: 'usuario' })
       .sort({ updatedAt: -1 })
       .skip((page - 1) * itemsPerPage)
       .limit(itemsPerPage);
 
-    let response = null;
-    let prevPage = null;
-    let nextPage = null;
-
-    if (clients.length > 0) {
-      response = clients;
-
-      if (page > 1) {
-        prevPage = page - 1;
-      }
-
-      const totalClients = await Clientes.countDocuments({ author_id: admin._id });
-      const totalPages = Math.ceil(totalClients / itemsPerPage);
-
-      if (page < totalPages) {
-        nextPage = page + 1;
-      }
-    }
+    // Obtener total de clientes para calcular totalPages
+    const totalClients = await Clientes.countDocuments({ author_id: admin._id });
+    const totalPages = Math.ceil(totalClients / itemsPerPage);
 
     res.status(200).json({
-      response,
-      message: "Clientes encontrados",
+      response: clients || [],  // Si clients es null, se devuelve un array vacío
+      message: clients.length > 0 ? "Clientes encontrados" : "No hay clientes disponibles",
       currentPage: page,
-      prevPage,
-      nextPage
+      prevPage: page > 1 ? page - 1 : null,
+      nextPage: page < totalPages ? page + 1 : null,
+      totalPages
     });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      response: null,
+      response: [],
       message: "Ocurrió un error en el servidor"
     });
   }
