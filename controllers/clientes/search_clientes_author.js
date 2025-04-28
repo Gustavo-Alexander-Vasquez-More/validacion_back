@@ -35,7 +35,6 @@ export default async (req, res) => {
       ],
     })
       .limit(5) // Máximo 5 resultados
-      .select("nombre estado_id author_id") // Selecciona solo los campos necesarios
       .populate("estado_id", "nombre") // Pobla estado_id con el nombre del estado
       .populate("author_id", "usuario"); // Pobla author_id con el usuario
 
